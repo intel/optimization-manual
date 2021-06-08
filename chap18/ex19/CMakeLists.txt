@@ -1,0 +1,10 @@
+set(avx512_ex19_srcs ex19_test.cpp scalar_histogram.c avx512_histogram.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex19_srcs ${avx512_ex19_srcs} scalar_histogram.s avx512_histogram.s)
+elseif(MSVC)
+set(avx512_ex19_srcs ${avx512_ex19_srcs} scalar_histogram.asm avx512_histogram.asm)
+endif()
+add_executable(avx512_ex19_tests ${avx512_ex19_srcs})
+
+target_link_libraries(avx512_ex19_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex19_test COMMAND avx512_ex19_tests)

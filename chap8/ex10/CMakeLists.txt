@@ -1,0 +1,3 @@
+add_executable(vnni_ex10_tests ex10_test.cpp pixel_shuffler_offset.c)
+target_link_libraries(vnni_ex10_tests gtest_main)
+add_test(NAME vnni_ex10_test COMMAND vnni_ex10_tests)

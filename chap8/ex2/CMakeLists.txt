@@ -1,0 +1,6 @@
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+  set_property(SOURCE quantization_avx512.cpp APPEND PROPERTY COMPILE_OPTIONS "-mavx512f")
+endif()
+add_executable(vnni_ex2_tests ex2_test.cpp quantization_avx512.cpp quantization_scalar.cpp)
+target_link_libraries(vnni_ex2_tests gtest_main optimisation_common)
+add_test(NAME vnni_ex2_test COMMAND vnni_ex2_tests)

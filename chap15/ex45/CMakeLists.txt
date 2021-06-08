@@ -1,0 +1,10 @@
+set(avx_ex45_srcs ex45_test.cpp vpgatherd_soft.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex45_srcs ${avx_ex45_srcs} vpgatherd_soft.s)
+elseif(MSVC)
+set(avx_ex45_srcs ${avx_ex45_srcs} vpgatherd_soft.asm)
+endif()
+add_executable(avx_ex45_tests ${avx_ex45_srcs})
+
+target_link_libraries(avx_ex45_tests gtest_main)
+add_test(NAME avx_ex45_test COMMAND avx_ex45_tests)

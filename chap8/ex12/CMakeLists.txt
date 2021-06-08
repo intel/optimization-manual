@@ -1,0 +1,6 @@
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set_property(SOURCE sigmoid_scalef_avx512.cpp APPEND PROPERTY COMPILE_OPTIONS "-mavx512f" "-mavx512dq")
+endif()
+add_executable(vnni_ex12_tests ex12_test.cpp sigmoid_scalef_avx512.cpp)
+target_link_libraries(vnni_ex12_tests gtest_main optimisation_common)
+add_test(NAME vnni_ex12_test COMMAND vnni_ex12_tests)

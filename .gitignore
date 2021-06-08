@@ -1,0 +1,7 @@
+*~
+*#
+build
+.checkpatch-camelcase.git.
+checkpatch.pl
+const_structs.checkpatch
+spelling.txt

@@ -1,0 +1,11 @@
+set(avx512_ex18_srcs ex18_test.cpp qword_avx2_intrinsics.c qword_avx2.c qword_avx512_intrinsics.c qword_avx512.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex18_srcs ${avx512_ex18_srcs} qword_avx2_ass.s qword_avx512_ass.s)
+set_property(SOURCE qword_avx512_intrinsics.c APPEND PROPERTY COMPILE_OPTIONS "-mavx512f" "-mavx512dq")
+elseif(MSVC)
+set(avx512_ex18_srcs ${avx512_ex18_srcs} qword_avx2_ass.asm qword_avx512_ass.asm)
+endif()
+add_executable(avx512_ex18_tests ${avx512_ex18_srcs})
+
+target_link_libraries(avx512_ex18_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex18_test COMMAND avx512_ex18_tests)

@@ -1,0 +1,10 @@
+set(avx_ex24_srcs ex24_test.cpp rcpps_mul_sse.c vrcpps_mul_avx.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex24_srcs ${avx_ex24_srcs} rcpps_mul_sse.s vrcpps_mul_avx.s)
+elseif(MSVC)
+set(avx_ex24_srcs ${avx_ex24_srcs} rcpps_mul_sse.asm vrcpps_mul_avx.asm)
+endif()
+add_executable(avx_ex24_tests ${avx_ex24_srcs})
+
+target_link_libraries(avx_ex24_tests gtest_main)
+add_test(NAME avx_ex24_test COMMAND avx_ex24_tests)

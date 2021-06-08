@@ -1,0 +1,10 @@
+set(avx512_ex34_srcs ex34_test.cpp double_rsqrt_52.c double_rsqrt_51.c double_rsqrt_50.c double_rsqrt_26.c double_rsqrt_14.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex34_srcs ${avx512_ex34_srcs} double_rsqrt_52.s double_rsqrt_51.s double_rsqrt_50.s double_rsqrt_26.s double_rsqrt_14.s)
+elseif(MSVC)
+set(avx512_ex34_srcs ${avx512_ex34_srcs} double_rsqrt_52.asm double_rsqrt_51.asm double_rsqrt_50.asm double_rsqrt_26.asm double_rsqrt_14.asm)
+endif()
+add_executable(avx512_ex34_tests ${avx512_ex34_srcs})
+
+target_link_libraries(avx512_ex34_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex34_test COMMAND avx512_ex34_tests)

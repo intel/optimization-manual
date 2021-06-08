@@ -1,0 +1,10 @@
+set(avx512_ex25_srcs ex25_test.cpp fma_unit_count.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex25_srcs ${avx512_ex25_srcs} fma_shuffle_tpt.s fma_only_tpt.s)
+elseif(MSVC)
+set(avx512_ex25_srcs ${avx512_ex25_srcs} fma_shuffle_tpt.asm fma_only_tpt.asm)
+endif()
+add_executable(avx512_ex25_tests ${avx512_ex25_srcs})
+
+target_link_libraries(avx512_ex25_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex25_test COMMAND avx512_ex25_tests)

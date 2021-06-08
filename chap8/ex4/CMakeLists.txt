@@ -1,0 +1,6 @@
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set_property(SOURCE low_ofm_conv.cpp APPEND PROPERTY COMPILE_OPTIONS "-mavx512f" "-mavx512vnni")
+endif()
+add_executable(vnni_ex4_tests ex4_test.cpp low_ofm_conv.cpp)
+target_link_libraries(vnni_ex4_tests gtest_main optimisation_common)
+add_test(NAME vnni_ex4_test COMMAND vnni_ex4_tests)

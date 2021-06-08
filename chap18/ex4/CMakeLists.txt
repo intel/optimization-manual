@@ -1,0 +1,10 @@
+set(avx512_ex4_srcs ex4_test.cpp mul_blend_avx.c mul_blend_avx512.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex4_srcs ${avx512_ex4_srcs} mul_blend_avx.s mul_blend_avx512.s)
+elseif(MSVC)
+set(avx512_ex4_srcs ${avx512_ex4_srcs} mul_blend_avx.asm mul_blend_avx512.asm)
+endif()
+add_executable(avx512_ex4_tests ${avx512_ex4_srcs})
+
+target_link_libraries(avx512_ex4_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex4_test COMMAND avx512_ex4_tests)

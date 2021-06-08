@@ -1,0 +1,10 @@
+set(avx_ex22_srcs ex22_test.cpp divps_sse.c vdivps_avx.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex22_srcs ${avx_ex22_srcs} divps_sse.s vdivps_avx.s)
+elseif(MSVC)
+set(avx_ex22_srcs ${avx_ex22_srcs} divps_sse.asm vdivps_avx.asm)
+endif()
+add_executable(avx_ex22_tests ${avx_ex22_srcs})
+
+target_link_libraries(avx_ex22_tests gtest_main)
+add_test(NAME avx_ex22_test COMMAND avx_ex22_tests)

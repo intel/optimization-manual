@@ -1,0 +1,10 @@
+set(avx_ex8_srcs ex8_test.cpp gather_scalar.c gather_vinsert.c gather_vinsert_vshufps.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex8_srcs ${avx_ex8_srcs} gather_scalar.s gather_vinsert.s gather_vinsert_vshufps.s)
+elseif(MSVC)
+set(avx_ex8_srcs ${avx_ex8_srcs} gather_scalar.asm gather_vinsert.asm gather_vinsert_vshufps.asm)
+endif()
+add_executable(avx_ex8_tests ${avx_ex8_srcs})
+
+target_link_libraries(avx_ex8_tests gtest_main)
+add_test(NAME avx_ex8_test COMMAND avx_ex8_tests)

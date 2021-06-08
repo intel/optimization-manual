@@ -1,0 +1,10 @@
+set(avx_ex35_srcs ex35_test.cpp fp_mul_add.c fp_fma.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex35_srcs ${avx_ex35_srcs} fp_mul_add.s fp_fma.s)
+elseif(MSVC)
+set(avx_ex35_srcs ${avx_ex35_srcs} fp_mul_add.asm fp_fma.asm)
+endif()
+add_executable(avx_ex35_tests ${avx_ex35_srcs})
+
+target_link_libraries(avx_ex35_tests gtest_main)
+add_test(NAME avx_ex35_test COMMAND avx_ex35_tests)

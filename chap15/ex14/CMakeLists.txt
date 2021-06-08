@@ -1,0 +1,10 @@
+set(avx_ex14_srcs ex14_test.cpp cond_scalar.c cond_vmaskmov.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex14_srcs ${avx_ex14_srcs} cond_scalar.s cond_vmaskmov.s)
+elseif(MSVC)
+set(avx_ex14_srcs ${avx_ex14_srcs} cond_scalar.asm cond_vmaskmov.asm)
+endif()
+add_executable(avx_ex14_tests ${avx_ex14_srcs})
+
+target_link_libraries(avx_ex14_tests gtest_main)
+add_test(NAME avx_ex14_test COMMAND avx_ex14_tests)

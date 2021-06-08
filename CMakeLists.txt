@@ -1,0 +1,143 @@
+cmake_minimum_required (VERSION 3.0.0)
+project(optimization C CXX ASM)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES MSVC)
+  enable_language(ASM_MASM)
+endif()
+
+OPTION(ENABLE_WERROR "Build with -Werror" OFF)
+
+set (CMAKE_CXX_STANDARD 11)
+
+# Download and unpack googletest at configure time
+configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+if(result)
+  message(FATAL_ERROR "CMake step for googletest failed: ${result}")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+if(result)
+  message(FATAL_ERROR "Build step for googletest failed: ${result}")
+endif()
+
+# Prevent overriding the parent project's compiler/linker
+# settings on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Add googletest directly to our build. This defines
+# the gtest and gtest_main targets.
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
+                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
+                 EXCLUDE_FROM_ALL)
+
+# The gtest/gtest_main targets carry header search path
+# dependencies automatically when using CMake 2.8.11 or
+# later. Otherwise we have to add them here ourselves.
+if (CMAKE_VERSION VERSION_LESS 2.8.11)
+  include_directories("${gtest_SOURCE_DIR}/include")
+endif()
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
+
+include_directories("common")
+
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+  add_compile_options(-Wall -Winline -pedantic -march=haswell)
+endif()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+  add_compile_options(-Wno-unused-command-line-argument)
+endif()
+
+if (ENABLE_WERROR)
+  add_compile_options(-Werror)
+endif()
+
+enable_testing()
+add_subdirectory(common)
+add_subdirectory(chap5/ex15)
+add_subdirectory(chap8/ex1)
+add_subdirectory(chap8/ex2)
+add_subdirectory(chap8/ex4)
+add_subdirectory(chap8/ex5)
+add_subdirectory(chap8/ex6)
+add_subdirectory(chap8/ex7)
+add_subdirectory(chap8/ex9)
+add_subdirectory(chap8/ex10)
+add_subdirectory(chap8/ex11)
+add_subdirectory(chap8/ex12)
+add_subdirectory(chap15/ex1)
+add_subdirectory(chap15/ex2)
+add_subdirectory(chap15/ex3)
+add_subdirectory(chap15/ex6)
+add_subdirectory(chap15/ex7)
+add_subdirectory(chap15/ex8)
+add_subdirectory(chap15/ex9)
+add_subdirectory(chap15/ex10)
+add_subdirectory(chap15/ex12)
+add_subdirectory(chap15/ex14)
+add_subdirectory(chap15/ex16)
+add_subdirectory(chap15/ex17)
+add_subdirectory(chap15/ex18)
+add_subdirectory(chap15/ex19)
+add_subdirectory(chap15/ex20)
+add_subdirectory(chap15/ex21)
+add_subdirectory(chap15/ex22)
+add_subdirectory(chap15/ex23)
+add_subdirectory(chap15/ex24)
+add_subdirectory(chap15/ex25)
+add_subdirectory(chap15/ex26)
+add_subdirectory(chap15/ex27)
+add_subdirectory(chap15/ex28)
+add_subdirectory(chap15/ex29)
+add_subdirectory(chap15/ex30)
+add_subdirectory(chap15/ex31)
+add_subdirectory(chap15/ex34)
+add_subdirectory(chap15/ex35)
+add_subdirectory(chap15/ex36)
+add_subdirectory(chap15/ex39)
+add_subdirectory(chap15/ex41)
+add_subdirectory(chap15/ex45)
+add_subdirectory(chap15/ex46)
+add_subdirectory(chap15/ex47)
+add_subdirectory(chap15/ex48)
+add_subdirectory(chap18/ex1)
+add_subdirectory(chap18/ex2)
+add_subdirectory(chap18/ex3)
+add_subdirectory(chap18/ex4)
+add_subdirectory(chap18/ex6)
+add_subdirectory(chap18/ex7)
+add_subdirectory(chap18/ex8)
+add_subdirectory(chap18/ex9)
+add_subdirectory(chap18/ex10)
+add_subdirectory(chap18/ex11)
+add_subdirectory(chap18/ex12)
+add_subdirectory(chap18/ex13)
+add_subdirectory(chap18/ex14)
+add_subdirectory(chap18/ex15)
+add_subdirectory(chap18/ex16)
+add_subdirectory(chap18/ex17)
+add_subdirectory(chap18/ex18)
+add_subdirectory(chap18/ex19)
+add_subdirectory(chap18/ex20)
+add_subdirectory(chap18/ex21)
+add_subdirectory(chap18/ex22)
+add_subdirectory(chap18/ex23)
+add_subdirectory(chap18/ex24)
+add_subdirectory(chap18/ex25)
+add_subdirectory(chap18/ex26)
+add_subdirectory(chap18/ex27)
+add_subdirectory(chap18/ex28)
+add_subdirectory(chap18/ex29)
+add_subdirectory(chap18/ex30)
+add_subdirectory(chap18/ex31)
+add_subdirectory(chap18/ex32)
+add_subdirectory(chap18/ex33)
+add_subdirectory(chap18/ex34)
+add_subdirectory(chap18/ex35)

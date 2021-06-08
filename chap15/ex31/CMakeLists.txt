@@ -1,0 +1,10 @@
+set(avx_ex31_srcs ex31_test.cpp subsum_avx.c subsum_sse.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx_ex31_srcs ${avx_ex31_srcs} subsum_avx.s subsum_sse.s)
+elseif(MSVC)
+set(avx_ex31_srcs ${avx_ex31_srcs} subsum_avx.asm subsum_sse.asm)
+endif()
+add_executable(avx_ex31_tests ${avx_ex31_srcs})
+
+target_link_libraries(avx_ex31_tests gtest_main)
+add_test(NAME avx_ex31_test COMMAND avx_ex31_tests)

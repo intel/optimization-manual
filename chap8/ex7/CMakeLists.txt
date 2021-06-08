@@ -1,0 +1,6 @@
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set_property(SOURCE pooling.c APPEND PROPERTY COMPILE_OPTIONS "-mavx512f")
+endif()
+add_executable(vnni_ex7_tests ex7_test.cpp pooling.c)
+target_link_libraries(vnni_ex7_tests gtest_main optimisation_common)
+add_test(NAME vnni_ex7_test COMMAND vnni_ex7_tests)

@@ -1,0 +1,10 @@
+set(avx512_ex15_srcs ex15_test.cpp register_broadcast.c memory_broadcast.c)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex15_srcs ${avx512_ex15_srcs} register_broadcast.s memory_broadcast.s)
+elseif(MSVC)
+set(avx512_ex15_srcs ${avx512_ex15_srcs} register_broadcast.asm memory_broadcast.asm)
+endif()
+add_executable(avx512_ex15_tests ${avx512_ex15_srcs})
+
+target_link_libraries(avx512_ex15_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex15_test COMMAND avx512_ex15_tests)

@@ -1,0 +1,10 @@
+set(avx512_ex24_srcs ex24_test.cpp)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
+set(avx512_ex24_srcs ${avx512_ex24_srcs} only_256bit.s both_256_512bit.s)
+elseif(MSVC)
+set(avx512_ex24_srcs ${avx512_ex24_srcs} only_256bit.asm both_256_512bit.asm)
+endif()
+add_executable(avx512_ex24_tests ${avx512_ex24_srcs})
+
+target_link_libraries(avx512_ex24_tests gtest_main optimisation_common)
+add_test(NAME avx512_ex24_test COMMAND avx512_ex24_tests)
