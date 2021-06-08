@@ -15,5 +15,5 @@ find . \( -path './build' \) -prune -type f -o -name '*.cpp' -o -name "*.c" -o -
 mkdir -p build
 cd build
 cmake .. -DENABLE_WERROR=ON
-make -j && make test
+make -j
 cd ..
