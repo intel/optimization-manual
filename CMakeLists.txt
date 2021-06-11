@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0.0)
+cmake_minimum_required (VERSION 3.16.3)
 project(optimization C CXX ASM)
 
 if (CMAKE_CXX_COMPILER_ID MATCHES MSVC)
