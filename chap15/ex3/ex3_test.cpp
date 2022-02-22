@@ -30,7 +30,8 @@ __declspec(align(32)) static float out[MAX_SIZE];
 static float in[MAX_SIZE] __attribute__((aligned(32)));
 static float out[MAX_SIZE] __attribute__((aligned(32)));
 #endif
-void init_sources()
+
+static void init_sources()
 {
 	for (int i = 0; i < MAX_SIZE; i++) {
 		in[i] = (float)i / 4.0f;
@@ -48,6 +49,7 @@ TEST(avx_3, poly_sse)
 		ASSERT_FLOAT_EQ(sq + cb + in[i], out[i]);
 	}
 
+	ASSERT_EQ(poly_sse_check(in, out, 0), false);
 	ASSERT_EQ(poly_sse_check(in, out, 3), false);
 	ASSERT_EQ(poly_sse_check(NULL, out, MAX_SIZE), false);
 	ASSERT_EQ(poly_sse_check(in, NULL, MAX_SIZE), false);
@@ -62,6 +64,7 @@ TEST(avx_3, poly_avx_128)
 		float cb = sq * in[i];
 		ASSERT_FLOAT_EQ(sq + cb + in[i], out[i]);
 	}
+	ASSERT_EQ(poly_avx_128_check(in, out, 0), false);
 	ASSERT_EQ(poly_avx_128_check(in, out, 7), false);
 	ASSERT_EQ(poly_avx_128_check(in, NULL, MAX_SIZE), false);
 	ASSERT_EQ(poly_avx_128_check(NULL, out, MAX_SIZE), false);
@@ -76,6 +79,7 @@ TEST(avx_3, poly_avx_256)
 		float cb = sq * in[i];
 		ASSERT_FLOAT_EQ(sq + cb + in[i], out[i]);
 	}
+	ASSERT_EQ(poly_avx_256_check(in, out, 0), false);
 	ASSERT_EQ(poly_avx_256_check(in, out, 7), false);
 	ASSERT_EQ(poly_avx_256_check(in, NULL, MAX_SIZE), false);
 	ASSERT_EQ(poly_avx_256_check(NULL, out, MAX_SIZE), false);

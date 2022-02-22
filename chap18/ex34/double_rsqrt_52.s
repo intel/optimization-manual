@@ -93,3 +93,6 @@ dc3:
 	.quad 0x3FD4000005E80001
 	.quad 0x3FD4000005E80001
 
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

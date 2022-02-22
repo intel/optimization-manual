@@ -22,7 +22,7 @@ const int MAX_SIZE = 4096;
 
 static float a[MAX_SIZE];
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++)
 		a[i] = i + 1.0f;

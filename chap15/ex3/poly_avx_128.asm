@@ -15,20 +15,22 @@
 
 ;	.globl poly_avx_128
 
-	; void poly_avx_128(float *in, float *out, size_t len);
+	; void poly_avx_128(float *in, float *out, int32_t len);
 	; On entry:
 	;     rcx = in
 	;     rdx = out
-	;     r8 = len
+	;     r8d = len
 
 .code
 poly_avx_128 PROC public
 
 	push rbx
 
+
 	mov rax, rcx   ; mov rax, pA
 	mov rbx, rdx   ; mov rbx, pB
-;	movsxd r8, edx ; movsxd r8, len
+	movsxd r8, r8d ; movsxd r8, len
+	sub r8, 4
 loop1:
 	; Load A
 	vmovups xmm0, [rax+r8*4]

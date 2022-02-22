@@ -27,16 +27,18 @@
 
 .code
 avx2_gatherpd PROC public
-	sub rsp, 120
+	sub rsp, 152
 	vmovaps xmmword ptr[rsp], xmm6
 	vmovaps xmmword ptr[rsp+16], xmm7
-	vmovaps xmmword ptr[rsp+32], xmm9
-	vmovaps xmmword ptr[rsp+48], xmm10
-	vmovaps xmmword ptr[rsp+64], xmm11
-	vmovaps xmmword ptr[rsp+80], xmm13
-	vmovaps xmmword ptr[rsp+96], xmm14
+	vmovaps xmmword ptr[rsp+32], xmm8
+	vmovaps xmmword ptr[rsp+48], xmm9
+	vmovaps xmmword ptr[rsp+64], xmm10
+	vmovaps xmmword ptr[rsp+80], xmm11
+	vmovaps xmmword ptr[rsp+96], xmm12
+	vmovaps xmmword ptr[rsp+112], xmm13
+	vmovaps xmmword ptr[rsp+128], xmm14
 
-	mov r10, qword ptr[rsp+40+120]
+	mov r10, qword ptr[rsp+40+152]
 	mov eax, 80000000h
 	movd xmm0, eax
 	mov eax, 1
@@ -76,12 +78,14 @@ loop_start:
 	vzeroupper
 	vmovaps xmm6, xmmword ptr[rsp]
 	vmovaps xmm7, xmmword ptr[rsp+16]
-	vmovaps xmm9, xmmword ptr[rsp+32]
-	vmovaps xmm10, xmmword ptr[rsp+48]
-	vmovaps xmm11, xmmword ptr[rsp+64]
-	vmovaps xmm13, xmmword ptr[rsp+80]
-	vmovaps xmm14, xmmword ptr[rsp+96]
-	add rsp, 120
+	vmovaps xmm8, xmmword ptr[rsp+32]
+	vmovaps xmm9, xmmword ptr[rsp+48]
+	vmovaps xmm10, xmmword ptr[rsp+64]
+	vmovaps xmm11, xmmword ptr[rsp+80]
+	vmovaps xmm12, xmmword ptr[rsp+96]
+	vmovaps xmm13, xmmword ptr[rsp+112]
+	vmovaps xmm14, xmmword ptr[rsp+128]
+	add rsp, 152
 	ret
 avx2_gatherpd ENDP
 end

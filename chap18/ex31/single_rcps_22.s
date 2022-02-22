@@ -44,3 +44,7 @@ single_rcps_22:
 	.p2align 2
 
 one:	.float 1.0
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

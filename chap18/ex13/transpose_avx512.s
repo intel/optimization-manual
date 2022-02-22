@@ -63,3 +63,7 @@ permMaskBuffer:
 	.short 5, 13, 21, 29, 37, 45, 53, 61
 	.short 6, 14, 22, 30, 38, 46, 54, 62
 	.short 7, 15, 23, 31, 39, 47, 55, 63
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

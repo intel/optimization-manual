@@ -52,9 +52,6 @@ static void init_sources()
 
 TEST(avx512_18, qword_avx2_instrinics)
 {
-	if (!supports_avx512_skx())
-		GTEST_SKIP_("AVX-512 not supported, skipping test");
-
 	init_sources();
 
 	memset(output, 0, MAX_SIZE * sizeof(int64_t));

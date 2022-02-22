@@ -25,10 +25,10 @@ bool poly_avx_128_check(float *in, float *out, int32_t len)
 		return false;
 
 	/*
-	 * len must be > 0 and a multiple of 4.
+	 * len must be >= 4 and a multiple of 4.
 	 */
 
-	if (len <= 0 || (len % 4) != 0)
+	if (len < 4 || (len % 4) != 0)
 		return false;
 
 	poly_avx_128(in, out, len);

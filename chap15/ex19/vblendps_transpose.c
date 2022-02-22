@@ -33,8 +33,8 @@ bool vblendps_transpose_check(float in[][8], float out[][8], size_t len)
 		return false;
 
 	/*
-	 * len is the matrix width and height divided by 8.  It must be greater
-	 * than 0.
+	 * len is the number of times the transpose should be repeated.
+	 * Must not be 0.
 	 */
 
 	if (len == 0)

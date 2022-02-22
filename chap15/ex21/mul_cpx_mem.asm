@@ -60,8 +60,8 @@ loop1:
 	jl loop1
 
 	vzeroupper
-	vmovaps xmmword ptr[rsp+16], xmm7
-	vmovaps xmmword ptr[rsp], xmm6
+	vmovaps xmm7, xmmword ptr[rsp+16]
+	vmovaps xmm6, xmmword ptr[rsp]
 	add rsp, 32
 	pop rbx
 	ret

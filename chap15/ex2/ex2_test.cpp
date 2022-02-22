@@ -57,13 +57,14 @@ TEST(avx_2, transform_sse)
 		  true);
 	;
 	for (int i = 0; i + 1 < len; i += 2) {
+		// Assert X'
 		float cosx = pInVector[i] * cos_teta;
+		float siny = pInVector[i + 1] * sin_teta;
+		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
+		// Assert Y'
 		float sinx = pInVector[i] * sin_teta;
-		ASSERT_FLOAT_EQ(cosx - sinx, pOutVector[i]);
-
-		cosx = pInVector[i + 1] * cos_teta;
-		sinx = pInVector[i + 1] * sin_teta;
-		ASSERT_FLOAT_EQ(sinx + cosx, pOutVector[i + 1]);
+		float cosy = pInVector[i + 1] * cos_teta;
+		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(transform_sse_check(cos_sin_teta_vec, sin_cos_teta_vec, NULL,
@@ -121,13 +122,14 @@ TEST(avx_2, transform_avx)
 		  true);
 
 	for (int i = 0; i + 1 < len; i += 2) {
+		// Assert X'
 		float cosx = pInVector[i] * cos_teta;
+		float siny = pInVector[i + 1] * sin_teta;
+		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
+		// Assert Y'
 		float sinx = pInVector[i] * sin_teta;
-		ASSERT_FLOAT_EQ(cosx - sinx, pOutVector[i]);
-
-		cosx = pInVector[i + 1] * cos_teta;
-		sinx = pInVector[i + 1] * sin_teta;
-		ASSERT_FLOAT_EQ(sinx + cosx, pOutVector[i + 1]);
+		float cosy = pInVector[i + 1] * cos_teta;
+		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(transform_avx_check(cos_sin_teta_vec, sin_cos_teta_vec, NULL,

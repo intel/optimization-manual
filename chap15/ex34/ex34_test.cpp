@@ -21,10 +21,10 @@
 const int MAX_SIZE = 24; /* Must divisible by 8 */
 
 #ifdef _MSC_VER // Preferred VS2019 version 16.3 or higher
-__declspec(align(32)) static float x[MAX_SIZE];
+__declspec(align(32)) static float x[MAX_SIZE + 8];
 __declspec(align(32)) static float y[MAX_SIZE];
 
-__declspec(align(16)) static __m128i xh[MAX_SIZE / 8];
+__declspec(align(16)) static __m128i xh[(MAX_SIZE / 8) + 1];
 __declspec(align(16)) static __m128i yh[MAX_SIZE / 8];
 #else
 static float x[MAX_SIZE] __attribute__((aligned(32)));
@@ -34,7 +34,7 @@ static __m128i xh[MAX_SIZE / 8] __attribute__((aligned(16)));
 static __m128i yh[MAX_SIZE / 8] __attribute__((aligned(16)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		x[i] = i * 1.0f;

@@ -64,3 +64,7 @@ loop1:
 	.p2align 6
 one_vec:
 	.double 1, 1, 1, 1, 1, 1, 1, 1
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

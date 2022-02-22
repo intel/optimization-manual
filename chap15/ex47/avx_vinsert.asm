@@ -22,13 +22,20 @@
 	;     rdx = index_buffer
 	;     r8 = imaginary_buffer
 	;     r9 = real_buffer
-	;     [rsp+48]  = complex_buffer
+	;     [rsp+48] = complex_buffer
 
 
 .code
 avx_vinsert PROC public
 	push rbx
 	mov rbx, qword ptr[rsp+48]
+	sub rsp, 96
+	vmovaps xmmword ptr[rsp], xmm6
+	vmovaps xmmword ptr[rsp+16], xmm7
+	vmovaps xmmword ptr[rsp+32], xmm8
+	vmovaps xmmword ptr[rsp+48], xmm9
+	vmovaps xmmword ptr[rsp+64], xmm10
+	vmovaps xmmword ptr[rsp+80], xmm11
 	xor rax, rax
 
 loop_start:
@@ -71,6 +78,13 @@ loop_start:
 	jl loop_start
 
 	vzeroupper
+	vmovaps xmm6, xmmword ptr[rsp]
+	vmovaps xmm7, xmmword ptr[rsp+16]
+	vmovaps xmm8, xmmword ptr[rsp+32]
+	vmovaps xmm9, xmmword ptr[rsp+48]
+	vmovaps xmm10, xmmword ptr[rsp+64]
+	vmovaps xmm11, xmmword ptr[rsp+80]
+	add rsp, 96
 	pop rbx
 	ret
 avx_vinsert ENDP

@@ -30,7 +30,7 @@ _sqrtps_divps_sse:
 sqrtps_divps_sse:
 
 	push rbx
-	
+
 	mov rax, rdi
 	mov rbx, rsi
 	mov rcx, rdx
@@ -48,3 +48,7 @@ loop1:
 
 	pop rbx
 	ret
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

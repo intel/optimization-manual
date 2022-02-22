@@ -17,8 +17,9 @@ To run the unit tests
 5. make && make test
 
 GCC 8.1 or higher is required to build the unit tests.  The unit tests are
-compiled with --march=haswell and so a Haswell CPU or later is required to run
-them.  Tests that execute instructions not present on Haswell will be
+compiled with --march=haswell and so a fourth-generation Intel® Core™ (Haswell)
+CPU or later is required to run them.  Tests that execute instructions not present
+on fourth-generation Intel® Core™ (Haswell) will be
 skipped if the CPU on which they are run does not support those instructions.
 
 The code samples can also be compiled with clang:
@@ -44,18 +45,25 @@ Dependency- Visual Studio 2019
 5. To Build- build "ALL_BUILD" project
 6. To Run tests- build "RUN_TESTS" project.
 
+## Building the Benchmarks
+
+Benchmark code is supplied for some of the code samples.  These benchmarks are
+built using [Google's Benchmark project](https://github.com/google/benchmark).
+If Benchmark is installed and discoverable by CMake, the benchmarks for the code
+samples will be automatically built when you type make.
+
 ## CPU Requirements
 
-The code samples assume that they are being run on a Haswell processor
+The code samples assume that they are being run on a fourth-generation Intel® Core™ (Haswell) processor
 or later and do not perform runtime checks for the instructions that
-they use that are present in Haswell, for example, FMA or AVX-2.
+they use that are present in fourth-generation Intel® Core™ (Haswell), for example, FMA or AVX-2.
 Some of the code samples may then crash if they are run
 on a device that does not support these instructions.
 
-The code samples do however check for post Haswell instruction sets such as AVX-512 and VNNI
-before running.  Tests will skip if they detect that the post Haswell instructions
+The code samples do however check for post fourth-generation Intel® Core™ (Haswell) instruction sets such as AVX-512 and VNNI
+before running.  Tests will skip if they detect that the post fourth-generation Intel® Core™ (Haswell) instructions
 they need are not present.   Some of the newest examples use new instructions only found
-in SkylakeX or later processors.  If you have an older CPU
+in seventh-generation Intel® Core™ (SkylakeX) or later processors.  If you have an older CPU
 in your PC you may find that everything builds on your system
 but that some of the tests are skipped or crash (if you don't have AVX2) when run. In this case,
 to fully run the tests, you need to run them under the SDE.

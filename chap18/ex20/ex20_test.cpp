@@ -13,11 +13,10 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <algorithm>
-
 #include "gtest/gtest.h"
 
 #include "avx512_vector_dp.h"
+#include "init_sparse.h"
 #include "optimisation_common.h"
 #include "scalar_vector_dp.h"
 
@@ -59,36 +58,7 @@ static void compute_ref_sum()
 
 static void init_sources()
 {
-	for (uint32_t i = 0; i < MAX_SIZE; i++) {
-		a_index[i] = i;
-		b_index[i] = i;
-	}
-
-	for (size_t i = 0; i < MAX_ELS; i++) {
-		a_values[i] = (((double)rand()) / RAND_MAX) - 0.5;
-		b_values[i] = (((double)rand()) / RAND_MAX) - 0.5;
-	}
-
-	for (size_t i = 0; i < MAX_SIZE; i++) {
-		size_t a = rand() % MAX_SIZE;
-		size_t b = rand() % MAX_SIZE;
-		uint32_t tmp;
-
-		tmp = a_index[a];
-		a_index[a] = a_index[b];
-		a_index[b] = tmp;
-
-		a = rand() % MAX_SIZE;
-		b = rand() % MAX_SIZE;
-
-		tmp = b_index[a];
-		b_index[a] = b_index[b];
-		b_index[b] = tmp;
-	}
-
-	std::sort(&a_index[0], &a_index[MAX_ELS]);
-	std::sort(&b_index[0], &b_index[MAX_ELS]);
-
+	init_sparse(a_index, a_values, b_index, b_values, MAX_ELS);
 	compute_ref_sum();
 }
 
@@ -97,9 +67,6 @@ TEST(avx512_20, scalar_vector_dp)
 	double sum;
 
 	srand(0);
-
-	if (!supports_avx512_skx())
-		GTEST_SKIP_("AVX-512 not supported, skipping test");
 
 	init_sources();
 	sum = 0.0;

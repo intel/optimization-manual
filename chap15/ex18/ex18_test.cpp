@@ -29,7 +29,7 @@ static float coeff[3] __attribute__((aligned(32)));
 static float out[MAX_SIZE] __attribute__((aligned(32)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	coeff[0] = 1;
 	coeff[1] = 3;
@@ -40,7 +40,7 @@ void init_sources()
 	}
 }
 
-TEST(avx_18, three_tap_avx)
+TEST(avx_18, three_tap_mixed_avx)
 {
 	init_sources();
 	ASSERT_EQ(three_tap_mixed_avx_check(a, coeff, out, MAX_SIZE - 2), true);

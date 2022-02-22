@@ -34,7 +34,7 @@ static float y[MAX_SIZE][MAX_SIZE] __attribute__((aligned(32)));
 static unaligned_matrix unaligned_m __attribute__((aligned(32)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++)
 		for (size_t j = 0; j < MAX_SIZE; j++) {

@@ -44,3 +44,7 @@ double_rsqrt_51:
 	.p2align 3
 
 one:	.double 1.0
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

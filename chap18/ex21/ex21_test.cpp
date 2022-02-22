@@ -33,7 +33,7 @@ static unsigned char out[MAX_SIZE] __attribute__((aligned(64)));
 static unsigned char c_out[MAX_SIZE] __attribute__((aligned(64)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		a[i] = static_cast<uint8_t>(i % 255);
@@ -45,8 +45,8 @@ void init_sources()
 	}
 }
 
-void lookup(unsigned char *in_bytes, unsigned char *out_bytes,
-	    unsigned char *dictionary_bytes, int numOfElements)
+static void lookup(unsigned char *in_bytes, unsigned char *out_bytes,
+		   unsigned char *dictionary_bytes, int numOfElements)
 {
 	for (int i = 0; i < numOfElements; i++) {
 		out_bytes[i] = dictionary_bytes[in_bytes[i] & 63];

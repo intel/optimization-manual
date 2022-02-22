@@ -64,15 +64,14 @@ TEST(avx512_2, transform_avx)
 		  true);
 
 	for (int i = 0; i < len; i += 2) {
-		if (i & 1) {
-			float cosx = pInVector[i + 1] * cos_teta;
-			float sinx = pInVector[i + 1] * sin_teta;
-			EXPECT_FLOAT_EQ(sinx + cosx, pOutVector[i]);
-		} else {
-			float cosx = pInVector[i] * cos_teta;
-			float sinx = pInVector[i] * sin_teta;
-			EXPECT_FLOAT_EQ(cosx - sinx, pOutVector[i]);
-		}
+		// Assert X'
+		float cosx = pInVector[i] * cos_teta;
+		float siny = pInVector[i + 1] * sin_teta;
+		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
+		// Assert Y'
+		float sinx = pInVector[i] * sin_teta;
+		float cosy = pInVector[i + 1] * cos_teta;
+		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(transform_avx_check(NULL, sin_cos_teta_vec, pInVector,
@@ -148,15 +147,14 @@ TEST(avx512_2, transform_avx512)
 		  true);
 
 	for (int i = 0; i < len; i += 2) {
-		if (i & 1) {
-			float cosx = pInVector[i + 1] * cos_teta;
-			float sinx = pInVector[i + 1] * sin_teta;
-			EXPECT_FLOAT_EQ(sinx + cosx, pOutVector[i]);
-		} else {
-			float cosx = pInVector[i] * cos_teta;
-			float sinx = pInVector[i] * sin_teta;
-			EXPECT_FLOAT_EQ(cosx - sinx, pOutVector[i]);
-		}
+		// Assert X'
+		float cosx = pInVector[i] * cos_teta;
+		float siny = pInVector[i + 1] * sin_teta;
+		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
+		// Assert Y'
+		float sinx = pInVector[i] * sin_teta;
+		float cosy = pInVector[i + 1] * cos_teta;
+		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(transform_avx512_check(NULL, sin_cos_teta_vec, pInVector,

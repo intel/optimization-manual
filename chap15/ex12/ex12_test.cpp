@@ -30,7 +30,7 @@ static float dest[MAX_SIZE] __attribute__((aligned(16)));
 static float src2[MAX_SIZE] __attribute__((aligned(16)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (int i = 0; i < MAX_SIZE; i++) {
 		src[i] = 2.0f * i;

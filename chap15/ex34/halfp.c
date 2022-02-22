@@ -18,7 +18,9 @@
 bool halfp_check(__m128i *x, __m128i *y, uint64_t len)
 {
 	/*
-	 * x and y must be non-NULL.
+	 * x and y must be non-NULL.  x must be 16 bytes larger than y.
+	 * These additional bytes aren't used but are required by the algorithm.
+	 * The number of valid half floats in y is len - 2.
 	 */
 
 	if (!x || !y)

@@ -18,7 +18,10 @@
 bool singlep_check(float *x, float *y, uint64_t len)
 {
 	/*
-	 * x and y must be non-NULL and 32 byte aligned.
+	 * x and y must be non-NULL and 32 byte aligned.  x must be
+	 * 32 bytes larger than y.  These additional bytes aren't used
+	 * but are required by the algorithm.  The number of valid
+	 * floats in y is len - 2.
 	 */
 
 	if (!x || !y)

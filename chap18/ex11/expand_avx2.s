@@ -326,3 +326,7 @@ shuf2:
 	.int 0, 0, 1, 2, 3, 4, 5, 6
 	.int 0, 1, 2, 3, 4, 5, 6, 7
 
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
+

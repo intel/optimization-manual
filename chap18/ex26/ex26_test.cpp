@@ -25,7 +25,7 @@ static complex_num aos[MAX_SIZE];
 static float soa_real[MAX_SIZE];
 static float soa_imaginary[MAX_SIZE];
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		aos[i].real = (float)i;

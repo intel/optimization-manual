@@ -73,3 +73,7 @@ index_inc:
 	.4byte 0, 8, 16, 24, 0, 8, 16, 24
 index_scale:
 	.4byte 32, 32, 32, 32, 32, 32, 32, 32
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
