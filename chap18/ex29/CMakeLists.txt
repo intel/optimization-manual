@@ -1,10 +1,13 @@
-set(avx512_ex29_srcs ex29_test.cpp saxpy_512.c)
 if(CMAKE_CXX_COMPILER_ID MATCHES Clang OR CMAKE_CXX_COMPILER_ID MATCHES GNU OR CMAKE_CXX_COMPILER_ID MATCHES AppleClang)
-set(avx512_ex29_srcs ${avx512_ex29_srcs} saxpy_512.s)
+set(avx512_ex29_ass saxpy_512.s)
 elseif(MSVC)
-set(avx512_ex29_srcs ${avx512_ex29_srcs} saxpy_512.asm)
+set(avx512_ex29_ass saxpy_512.asm)
 endif()
-add_executable(avx512_ex29_tests ${avx512_ex29_srcs})
-
+add_executable(avx512_ex29_tests ex29_test.cpp saxpy_512.c ${avx512_ex29_ass})
 target_link_libraries(avx512_ex29_tests gtest_main optimisation_common)
+
+IF( benchmark_FOUND )
+  add_executable(avx512_ex29_bench ex29_bench.cpp ${avx512_ex29_ass})
+  target_link_libraries(avx512_ex29_bench benchmark::benchmark optimisation_common)
+ENDIF()
 add_test(NAME avx512_ex29_test COMMAND avx512_ex29_tests)

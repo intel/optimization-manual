@@ -30,7 +30,7 @@ static float x[MAX_SIZE] __attribute__((aligned(32)));
 static float y[MAX_SIZE] __attribute__((aligned(32)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		x[i] = i * 1.0f;

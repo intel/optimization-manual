@@ -34,7 +34,7 @@ static float d[MAX_SIZE] __attribute__((aligned(32)));
 static float e[MAX_SIZE] __attribute__((aligned(32)));
 #endif
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		a[i] = (float)(i & 1);

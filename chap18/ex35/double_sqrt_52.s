@@ -53,3 +53,7 @@ double_sqrt_52:
 	.p2align 3
 
 half:	.double 0.5
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

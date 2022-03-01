@@ -31,7 +31,8 @@ static int32_t in[MAX_SIZE] __attribute__((aligned(32)));
 static int32_t out[MAX_SIZE] __attribute__((aligned(32)));
 static uint32_t indices[MAX_SIZE] __attribute__((aligned(32)));
 #endif
-void init_sources()
+
+static void init_sources()
 {
 	for (int i = 0; i < MAX_SIZE; i++) {
 		in[i] = i - (MAX_SIZE / 2);

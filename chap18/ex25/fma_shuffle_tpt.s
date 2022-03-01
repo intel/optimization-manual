@@ -91,3 +91,7 @@ one_vec:
 	.double 1, 1, 1, 1, 1, 1, 1, 1
 shuf_vec:
 	.4byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

@@ -24,7 +24,7 @@ const int MAX_SIZE = 4096;
 
 static int16_t in[MAX_SIZE];
 
-void init_sources()
+static void init_sources()
 {
 	for (int16_t i = 0; i < MAX_SIZE; i++)
 		in[i] = i - (MAX_SIZE / 2);

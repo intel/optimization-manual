@@ -186,3 +186,6 @@ upconvert_control:
 	.quad 0x0000000000000006
 	.quad 0x0000000000000007
 
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

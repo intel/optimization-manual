@@ -338,3 +338,7 @@ write_mask:
 	.int 0x80000000, 0x80000000, 0x80000000, 0x80000000
 	.int 0x00000000, 0x00000000, 0x00000000, 0x00000000
 	.int 0x00000000, 0x00000000, 0x00000000, 0x00000000
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

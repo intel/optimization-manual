@@ -18,11 +18,11 @@
 	.globl _poly_avx_256
 	.globl poly_avx_256
 
-	# void poly_avx_256(float *in, float *out, size_t len);
+	# void poly_avx_256(float *in, float *out, int32_t len);
 	# On entry:
 	#     rdi = in
 	#     rsi = out
-	#     rdx = len
+	#     edx = len
 
 	.text
 _poly_avx_256:
@@ -33,6 +33,7 @@ poly_avx_256:
 	mov rax, rdi   # mov rax, pA
 	mov rbx, rsi   # mov rbx, pB
 	movsxd r8, edx # movsxd r8, len
+	sub r8, 8
 loop1:
 	# Load A
 	vmovups ymm0, [rax+r8*4]
@@ -52,3 +53,7 @@ loop1:
 	vzeroupper
 	pop rbx
 	ret
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

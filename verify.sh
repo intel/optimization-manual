@@ -16,4 +16,20 @@ mkdir -p build
 cd build
 cmake .. -DENABLE_WERROR=ON
 make -j
+
+exstack=0
+if type eu-readelf >/dev/null 2>&1  ; then
+    for i in `find . -executable -type f -name "*_bench" -o -name "*_tests"` ; do
+        stack=`eu-readelf -l $i | awk '$1 == "GNU_STACK"'`
+        if [[ "$stack" = *" RWE "* ]]; then
+            echo "$i has an executable stack."
+            exstack=1
+        fi
+    done
+fi
+
 cd ..
+
+if [ "$exstack" -eq "1" ]; then
+    exit 1
+fi

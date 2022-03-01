@@ -137,3 +137,7 @@ inner:
 	.p2align 2
 onew:
 	.word 1, 1
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

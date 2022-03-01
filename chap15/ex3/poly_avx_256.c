@@ -25,10 +25,10 @@ bool poly_avx_256_check(float *in, float *out, int32_t len)
 		return false;
 
 	/*
-	 * len must be > 0 and a multiple of 8.
+	 * len must be >= 8 and a multiple of 8.
 	 */
 
-	if (len <= 0 || (len % 8) != 0)
+	if (len < 8 || (len % 8) != 0)
 		return false;
 
 	poly_avx_256(in, out, len);

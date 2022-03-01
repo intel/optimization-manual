@@ -49,3 +49,7 @@ single_sqrt_23:
 	.p2align 2
 
 half:	.float 0.5
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

@@ -27,7 +27,7 @@ static double soa_real[MAX_SIZE];
 static double soa_imaginary[MAX_SIZE];
 static uint32_t indices[MAX_SIZE];
 
-void init_sources()
+static void init_sources()
 {
 	for (uint32_t i = 0; i < MAX_SIZE; i++) {
 		indices[i] = MAX_SIZE - (i + 1);

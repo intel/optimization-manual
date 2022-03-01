@@ -25,7 +25,7 @@ static float a[8];
 static float c1[8];
 static float c2[8];
 
-void init_sources()
+static void init_sources()
 {
 	for (size_t i = 0; i < MAX_SIZE; i++) {
 		a[i] = i * 1.0f;

@@ -108,3 +108,7 @@ mainloop:
 	.quad 0x0000000400000003
 	.quad 0x0000000600000005
 	.quad 0x0000000800000007
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

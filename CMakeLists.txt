@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.16.3)
 project(optimization C CXX ASM)
 
+find_package(benchmark QUIET)
+
 if (CMAKE_CXX_COMPILER_ID MATCHES MSVC)
   enable_language(ASM_MASM)
 endif()

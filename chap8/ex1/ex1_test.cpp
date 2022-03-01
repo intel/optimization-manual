@@ -35,7 +35,7 @@ static int8_t rhs_packed[K_PACKED][N_PACKED];
 static int32_t res_scalar[M][N];
 static int32_t res[M][N];
 
-void init_data()
+static void init_data()
 {
 	int8_t counter = 0;
 

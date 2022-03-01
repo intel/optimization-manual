@@ -73,3 +73,8 @@ multishift_ctrl:
 	.byte 0, 5, 10,15,20,25,30,35
 	.byte 0, 5, 10,15,20,25,30,35
 	.byte 0, 5, 10,15,20,25,30,35
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
+

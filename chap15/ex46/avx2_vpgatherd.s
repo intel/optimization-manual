@@ -75,5 +75,7 @@ cplx_offset:
 	.quad 0x700000005
 	.quad 0xB00000009
 	.quad 0xF0000000D
-
 	
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif

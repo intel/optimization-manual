@@ -18,11 +18,11 @@
 	.globl _poly_sse
 	.globl poly_sse
 
-	# void poly_sse(float *in, float *out, size_t len);
+	# void poly_sse(float *in, float *out, int32_t len);
 	# On entry:
 	#     rdi = in
 	#     rsi = out
-	#     rdx = len
+	#     edx = len
 
 	.text
 _poly_sse:
@@ -33,6 +33,7 @@ poly_sse:
 	mov rax, rdi   # mov rax, pA
 	mov rbx, rsi   # mov rbx, pB
 	movsxd r8, edx # movsxd r8, len
+	sub r8, 4
 loop1:
 	# Load A
 	movups xmm0, [rax+r8*4]
@@ -55,3 +56,7 @@ loop1:
 
 	pop rbx
 	ret
+
+#if defined(__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
