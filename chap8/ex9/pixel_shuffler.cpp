@@ -15,6 +15,7 @@
 
 #include <assert.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #include "pixel_shuffler.hpp"
 
