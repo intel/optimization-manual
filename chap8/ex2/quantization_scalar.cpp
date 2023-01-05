@@ -24,7 +24,7 @@ void quantize_activations_scalar(const float *data, u8 *quantized_data,
 {
 	int quant_min = 0;
 	int quant_max = (1 << bits) - 1;
-	//#pragma unroll (4)
+	// #pragma unroll (4)
 	for (int i = 0; i < count; i++) {
 		int int32_val = offset + (int)round(data[i] * factor);
 		int32_val = std::max(std::min(int32_val, quant_max), quant_min);

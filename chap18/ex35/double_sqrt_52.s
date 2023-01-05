@@ -49,7 +49,11 @@ double_sqrt_52:
 
 	ret
 
-.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 3
 
 half:	.double 0.5

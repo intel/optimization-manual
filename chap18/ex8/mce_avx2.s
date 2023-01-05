@@ -58,7 +58,11 @@ mainloop:
 
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 2
 
 five:

@@ -50,11 +50,13 @@ void init_data()
 		for (size_t c = 0; c < INPUT_CHANNELS; c++)
 			for (size_t h = 0; h < INPUT_HEIGHT; h++)
 				for (size_t w = 0; w < INPUT_WIDTH; w++)
-					input[i++] = (pstype)(
-					    (f * INPUT_CHANNELS * INPUT_WIDTH *
-					     INPUT_HEIGHT) +
-					    (c * INPUT_WIDTH * INPUT_HEIGHT) +
-					    (h * INPUT_WIDTH) + w);
+					input[i++] =
+					    (pstype)((f * INPUT_CHANNELS *
+						      INPUT_WIDTH *
+						      INPUT_HEIGHT) +
+						     (c * INPUT_WIDTH *
+						      INPUT_HEIGHT) +
+						     (h * INPUT_WIDTH) + w);
 
 	memset(output, 0, sizeof(output));
 }

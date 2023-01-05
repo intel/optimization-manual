@@ -5,3 +5,4 @@ build
 checkpatch.pl
 const_structs.checkpatch
 spelling.txt
+**/optimisation.tar

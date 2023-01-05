@@ -57,7 +57,11 @@ loop1:
 	pop rbx
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 5
 
 half:

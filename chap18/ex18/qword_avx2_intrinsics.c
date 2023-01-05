@@ -24,7 +24,7 @@ void qword_avx2_intrinsics(const int64_t *a, const int64_t *b, int64_t *c,
 
 	for (int i = 0; i < N; i += 32) {
 		__m256i aa, bb, aah, bbh, mul, sum;
-		//#pragma unroll(8)
+		// #pragma unroll(8)
 		for (int j = 0; j < 8; j++) {
 			aa = _mm256_loadu_si256(
 			    (const __m256i *)(a + i + 4 * j));

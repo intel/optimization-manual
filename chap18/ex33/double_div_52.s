@@ -50,7 +50,11 @@ double_div_52:
 
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 3
 
 one:	.double 1.0

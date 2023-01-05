@@ -60,7 +60,11 @@ loop1:
 
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 6
 one_vec:
 	.double 1, 1, 1, 1, 1, 1, 1, 1

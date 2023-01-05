@@ -13,6 +13,12 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifdef __linux__
+#include <asm/prctl.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+#endif
+
 #include "optimisation_common.h"
 
 #define mask_skx_ebx_avx512                                                    \
@@ -36,13 +42,17 @@
 
 #define mask_icl_edx_avx512 (1 << 4) /* FSRM */
 
+#define mask_avx512_edx_fp16 (1 << 23) /* AVX512 FP16 */
+
+#define mask_xcr0_amx ((1 << 17) | (1 << 18)) /* XTILECFG/XTILEDATA */
+
 static bool supports_avx512_ebx_mask(uint32_t ebx_mask)
 {
 	uint32_t ebx;
 	uint32_t ecx;
 	uint32_t edx;
 
-	if (!supports_avx512(0, &ebx, &ecx, &edx))
+	if (!supports_avx512(&ebx, &ecx, &edx))
 		return false;
 
 	return (ebx & ebx_mask) == ebx_mask;
@@ -59,7 +69,7 @@ bool supports_avx512_clx(void)
 	uint32_t ecx;
 	uint32_t edx;
 
-	if (!supports_avx512(0, &ebx, &ecx, &edx))
+	if (!supports_avx512(&ebx, &ecx, &edx))
 		return false;
 
 	if ((ebx & mask_skx_ebx_avx512) != mask_skx_ebx_avx512)
@@ -77,7 +87,7 @@ bool supports_avx512_icl(void)
 	uint32_t ecx;
 	uint32_t edx;
 
-	if (!supports_avx512(0, &ebx, &ecx, &edx))
+	if (!supports_avx512(&ebx, &ecx, &edx))
 		return false;
 
 	if ((ebx & mask_icl_ebx_avx512) != mask_icl_ebx_avx512)
@@ -88,6 +98,49 @@ bool supports_avx512_icl(void)
 
 	if ((edx & mask_icl_edx_avx512) != mask_icl_edx_avx512)
 		return false;
+
+	return true;
+}
+
+bool supports_avx512_fp16(void)
+{
+	uint32_t ebx;
+	uint32_t ecx;
+	uint32_t edx;
+
+	if (!supports_avx512(&ebx, &ecx, &edx))
+		return false;
+
+	if ((ebx & mask_skx_ebx_avx512) != mask_skx_ebx_avx512)
+		return false;
+
+	if ((edx & mask_avx512_edx_fp16) != mask_avx512_edx_fp16)
+		return false;
+
+	return true;
+}
+
+bool supports_amx(void)
+{
+	if (!cpu_supports_amx())
+		return false;
+
+#ifdef __linux__
+#ifndef ARCH_GET_XCOMP_PERM
+#define ARCH_GET_XCOMP_PERM 0x1022
+#define ARCH_REQ_XCOMP_PERM 0x1023
+#endif
+	unsigned long mask = 0;
+
+	if (syscall(SYS_arch_prctl, ARCH_GET_XCOMP_PERM, &mask))
+		return false;
+
+	if ((mask & mask_xcr0_amx) == mask_xcr0_amx)
+		return true;
+
+	if (syscall(SYS_arch_prctl, ARCH_REQ_XCOMP_PERM, 18))
+		return false;
+#endif
 
 	return true;
 }
