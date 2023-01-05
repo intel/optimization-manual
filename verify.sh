@@ -15,7 +15,7 @@ find . \( -path './build' \) -prune -type f -o -name '*.cpp' -o -name "*.c" -o -
 mkdir -p build
 cd build
 cmake .. -DENABLE_WERROR=ON
-make -j && make test
+make -j 4 && make test
 
 exstack=0
 if type eu-readelf >/dev/null 2>&1  ; then
