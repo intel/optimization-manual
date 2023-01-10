@@ -22,7 +22,7 @@ void mul_blend_avx512(double *a, double *b, double *c, size_t N)
 	for (int i = 0; i < N; i += 32) {
 		__m512d aa, bb;
 		__mmask8 mask;
-		//#pragma unroll(4)
+		// #pragma unroll(4)
 		for (int j = 0; j < 4; j++) {
 			aa = _mm512_loadu_pd(a + i + j * 8);
 			bb = _mm512_loadu_pd(b + i + j * 8);

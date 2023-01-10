@@ -24,11 +24,14 @@
 extern "C" {
 #endif
 
-int64_t supports_avx512(uint32_t ecx_in, uint32_t *ebx, uint32_t *ecx,
-			uint32_t *edx);
+int64_t supports_avx512(uint32_t *ebx, uint32_t *ecx, uint32_t *edx);
+int64_t cpu_supports_amx(void);
 bool supports_avx512_skx(void);
 bool supports_avx512_clx(void);
 bool supports_avx512_icl(void);
+bool supports_avx512_fp16(void);
+bool supports_avx512_bf16(void);
+bool supports_amx(void);
 
 #ifdef __cplusplus
 }

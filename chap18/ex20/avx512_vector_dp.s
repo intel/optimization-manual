@@ -165,7 +165,11 @@ end:
 
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 6
 all_31s:
 	.quad 0x0000001f0000001f

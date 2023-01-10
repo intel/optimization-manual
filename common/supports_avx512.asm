@@ -16,13 +16,12 @@
 
 ;	.globl supports_avx512
 
-	; int64_t supports_avx512(uint32_t ecx_in, uint32_t *ebx, uint32_t *ecx, uint32_t *edx);
+	; int64_t supports_avx512(uint32_t *ebx, uint32_t *ecx, uint32_t *edx);
 	;
 	; On entry
-	;    ecx - value to move into ecx before calling cpuid for the last time.
-	;    rdx - pointer to a 32 bit integer that will store the value of ebx after cpuid(7,edi)
-	;    r8 - pointer to a 32 bit integer that will store the value of ecx after cpuid(7,edi)
-	;    r9 - pointer to a 32 bit integer that will store the value of edx after cpuid(7,edi)
+	;    rcx - pointer to a 32 bit integer that will store the value of ebx after cpuid(7,edi)
+	;    rdx - pointer to a 32 bit integer that will store the value of ecx after cpuid(7,edi)
+	;    r8 - pointer to a 32 bit integer that will store the value of edx after cpuid(7,edi)
 
 	; On exit
 	;     If AVX512_F is not supported eax will be 0.  Otherwise,
@@ -32,7 +31,7 @@
 .code
 supports_avx512 PROC public
 	push rbx
-	mov r10d, ecx
+	mov r10, rcx
 	mov r11, rdx
 
 	mov eax, 1
@@ -48,15 +47,15 @@ supports_avx512 PROC public
 	jne not_supported
 
 	mov eax, 7
-	mov ecx, r10d
+	xor ecx, ecx
 	cpuid
 
 	test ebx, 10000h	; Check for AVX512F
 	jz not_supported
 
-	mov dword ptr[r11], ebx
-	mov dword ptr[r8], ecx
-	mov dword ptr[r9], edx
+	mov dword ptr[r10], ebx
+	mov dword ptr[r11], ecx
+	mov dword ptr[r8], edx
 
 	mov eax, 1
 	pop rbx

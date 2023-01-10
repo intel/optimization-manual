@@ -30,7 +30,7 @@ void quantize_activations_avx512(const float *data, u8 *quantized_data,
 	__m512 factor_broadcast = _mm512_set1_ps(factor);
 	__m512i quant_min_broadcast = _mm512_set1_epi32(quant_min);
 	__m512i quant_max_broadcast = _mm512_set1_epi32(quant_max);
-	//#pragma unroll (4)
+	// #pragma unroll (4)
 	for (int i = 0; i < count_aligned; i += INTR_VECTOR_LENGTH_32_bit) {
 		__m512 data_m512 = _mm512_load_ps(&data[i]);
 		data_m512 = _mm512_mul_ps(data_m512, factor_broadcast);

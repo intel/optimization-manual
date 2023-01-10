@@ -21,7 +21,7 @@ void mul_blend_avx(double *a, double *b, double *c, size_t N)
 {
 	for (int i = 0; i < N; i += 32) {
 		__m256d aa, bb, mask;
-		//#pragma unroll(8)
+		// #pragma unroll(8)
 		for (int j = 0; j < 8; j++) {
 			aa = _mm256_loadu_pd(a + i + j * 4);
 			bb = _mm256_loadu_pd(b + i + j * 4);

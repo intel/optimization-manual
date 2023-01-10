@@ -53,7 +53,11 @@ double_rsqrt_52:
 
 	ret
 
-	.data
+#ifdef __APPLE__
+	.section __TEXT,__const
+#else
+	.section .rodata
+#endif
 	.p2align 6
 
 one:

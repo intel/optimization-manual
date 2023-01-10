@@ -6,7 +6,7 @@ Intel Optimization Manual available here
 is provided for GCC, Clang and MSVC, using the Intel syntax.  Unit tests are
 also provided for each of the samples.
 
-## Building on Linux
+## Building on Linux and macOS
 
 To run the unit tests
 
@@ -16,7 +16,13 @@ To run the unit tests
 4. cmake ..
 5. make && make test
 
-GCC 8.1 or higher is required to build the unit tests.  The unit tests are
+GCC 8.1 (or clang 12 on macOS) or higher is required to build the unit tests.  However,
+many of the newer examples, e.g, those that use AMX or AVX-512 FP16 instructions, require newer
+versions of the compilers to build; GCC 12 or clang 14.  No errors will be reported
+when building, but examples built with toolchains that do not support the instructions
+that they test will simple report an error when run and exit.
+
+The unit tests are
 compiled with --march=haswell and so a fourth-generation Intel® Core™ (Haswell)
 CPU or later is required to run them.  Tests that execute instructions not present
 on fourth-generation Intel® Core™ (Haswell) will be
@@ -34,13 +40,13 @@ The code samples can also be compiled with clang:
 ## Building on Windows
 
 To run the tests on Windows machine-
-Dependency- Visual Studio 2019
+Dependency- Visual Studio 2022
 
 1. go to optimization repo on your local machine.
 2. mkdir bld
 3. cd bld
 4. (inside x64 Native tools command prompt)
-   "cmake -G "Visual Studio 16 2019" .." => this will generate visual studio solution files.
+   "cmake -G "Visual Studio 17 2022" .." => this will generate visual studio solution files.
    open optimization.sln file using visual studio.
 5. To Build- build "ALL_BUILD" project
 6. To Run tests- build "RUN_TESTS" project.
@@ -51,6 +57,10 @@ Benchmark code is supplied for some of the code samples.  These benchmarks are
 built using [Google's Benchmark project](https://github.com/google/benchmark).
 If Benchmark is installed and discoverable by CMake, the benchmarks for the code
 samples will be automatically built when you type make.
+
+In Windows, ensure you build the benchmark code with the same build type 
+(Release/Debug) as Google's Benchmark to prevent debug level mismatch errors 
+while linking.
 
 ## CPU Requirements
 
