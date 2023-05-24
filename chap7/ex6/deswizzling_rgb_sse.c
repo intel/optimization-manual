@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 by Intel Corporation
+ * Copyright (C) 2023 by Intel Corporation
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
@@ -13,36 +13,17 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "transform_avx.h"
+#include <immintrin.h>
 
-bool transform_avx_check(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
-			 float *in, float *out, size_t len)
+#include "deswizzling_rgb_sse.h"
+
+bool deswizzling_rgb_sse_check(Vertex_soa *in, Vertex_aos *out)
 {
-	/*
-	 * cos_sin_theta_vec and float *sin_cos_theta_vec must be non-NULL.
-	 */
-
-	if (!cos_sin_theta_vec || !sin_cos_theta_vec)
+	/* in and out must be non-null */
+	if (!out || !in)
 		return false;
 
-	/*
-	 * in and out must be non NULL.  out must be 32 byte aligned.
-	 */
-
-	if (!in || !out)
-		return false;
-
-	if (((uintptr_t)out) % 32 != 0)
-		return false;
-
-	/*
-	 * len must be > 0 and divisible by 16.
-	 */
-
-	if (len == 0 || len % 16 != 0)
-		return false;
-
-	transform_avx(cos_sin_theta_vec, sin_cos_theta_vec, in, out, len);
+	deswizzling_rgb_sse(in, out);
 
 	return true;
 }

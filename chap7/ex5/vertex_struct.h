@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 by Intel Corporation
+ * Copyright (C) 2023 by Intel Corporation
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
@@ -13,22 +13,18 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef TRANSFORM_AVX512_H__
-#define TRANSFORM_AVX512_H__
+#ifndef VERTEX_STRUCT_H__
+#define VERTEX_STRUCT_H__
 
-#include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-void transform_avx512(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
-		      float *in, float *out, size_t len);
-bool transform_avx512_check(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
-			    float *in, float *out, size_t len);
-#ifdef __cplusplus
-}
-#endif
+#define MAX_SIZE 4
 
+typedef struct _VERTEX_AOS {
+	float x, y, z, color;
+} Vertex_aos; // AoS structure declaration
+
+typedef struct _VERTEX_SOA {
+	float x[MAX_SIZE], y[MAX_SIZE], z[MAX_SIZE], color[MAX_SIZE];
+} Vertex_soa; // SoA structure declaration
 #endif

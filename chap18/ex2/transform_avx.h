@@ -23,9 +23,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void transform_avx(float *cos_sin_teta_vec, float *sin_cos_teta_vec, float *in,
-		   float *out, size_t len);
-bool transform_avx_check(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
+void transform_avx(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
+		   float *in, float *out, size_t len);
+bool transform_avx_check(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
 			 float *in, float *out, size_t len);
 #ifdef __cplusplus
 }

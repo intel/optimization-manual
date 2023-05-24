@@ -15,14 +15,14 @@
 
 #include "transform_avx512.h"
 
-bool transform_avx512_check(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
+bool transform_avx512_check(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
 			    float *in, float *out, size_t len)
 {
 	/*
-	 * cos_sin_teta_vec and float *sin_cos_teta_vec must be non-NULL.
+	 * cos_sin_theta_vec and float *sin_cos_theta_vec must be non-NULL.
 	 */
 
-	if (!cos_sin_teta_vec || !sin_cos_teta_vec)
+	if (!cos_sin_theta_vec || !sin_cos_theta_vec)
 		return false;
 
 	/*
@@ -42,7 +42,7 @@ bool transform_avx512_check(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
 	if (len == 0 || len % 32 != 0)
 		return false;
 
-	transform_avx512(cos_sin_teta_vec, sin_cos_teta_vec, in, out, len);
+	transform_avx512(cos_sin_theta_vec, sin_cos_theta_vec, in, out, len);
 
 	return true;
 }

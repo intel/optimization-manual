@@ -26,8 +26,8 @@ swizzling_sse PROC public
     ; store non-volatile registers on stack
     push rbx
     sub rsp, 32
-    vmovaps xmmword ptr[rsp], xmm6
-    vmovaps  xmmword ptr[rsp+16], xmm7
+    movaps xmmword ptr[rsp], xmm6
+    movaps  xmmword ptr[rsp+16], xmm7
 
     mov rbx, rcx               ; mov rbx, aos*
     ;out is already in rdx
@@ -53,8 +53,8 @@ swizzling_sse PROC public
     movaps [rdx+32], xmm6      ; store Z
     movaps [rdx+48], xmm2      ; store W
 
-    vmovaps xmm6, xmmword ptr[rsp]
-    vmovaps xmm7, xmmword ptr[rsp+16]
+    movaps xmm6, xmmword ptr[rsp]
+    movaps xmm7, xmmword ptr[rsp+16]
     add rsp, 32
     pop rbx
     ret

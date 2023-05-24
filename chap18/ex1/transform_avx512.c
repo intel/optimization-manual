@@ -17,7 +17,7 @@
 
 #include "transform_avx512.h"
 
-void transform_avx512(float sin_teta, float cos_teta, float *in, float *out,
+void transform_avx512(float sin_theta, float cos_theta, float *in, float *out,
 		      size_t len)
 {
 	// Static memory allocation of 16 floats with 64byte alignments
@@ -25,34 +25,34 @@ void transform_avx512(float sin_teta, float cos_teta, float *in, float *out,
 	// clang-format off
 
 #ifdef _MSC_VER
-	__declspec(align(64)) float cos_sin_teta_vec[16] = {
+	__declspec(align(64)) float cos_sin_theta_vec[16] = {
 #else
-	float cos_sin_teta_vec[16] __attribute__((aligned(64))) = {
+	float cos_sin_theta_vec[16] __attribute__((aligned(64))) = {
 #endif
-		cos_teta, sin_teta, cos_teta, sin_teta,
-		cos_teta, sin_teta, cos_teta, sin_teta,
-		cos_teta, sin_teta, cos_teta, sin_teta,
-		cos_teta, sin_teta, cos_teta, sin_teta
+		cos_theta, sin_theta, cos_theta, sin_theta,
+		cos_theta, sin_theta, cos_theta, sin_theta,
+		cos_theta, sin_theta, cos_theta, sin_theta,
+		cos_theta, sin_theta, cos_theta, sin_theta
 	};
 #ifdef _MSC_VER
-	__declspec(align(64)) float sin_cos_teta_vec[16] = {
+	__declspec(align(64)) float sin_cos_theta_vec[16] = {
 #else
-	float sin_cos_teta_vec[16] __attribute__((aligned(64))) = {
+	float sin_cos_theta_vec[16] __attribute__((aligned(64))) = {
 #endif
-		sin_teta, cos_teta, sin_teta, cos_teta,
-		sin_teta, cos_teta, sin_teta, cos_teta,
-		sin_teta, cos_teta, sin_teta, cos_teta,
-		sin_teta, cos_teta, sin_teta, cos_teta
+		sin_theta, cos_theta, sin_theta, cos_theta,
+		sin_theta, cos_theta, sin_theta, cos_theta,
+		sin_theta, cos_theta, sin_theta, cos_theta,
+		sin_theta, cos_theta, sin_theta, cos_theta
 	};
 
 	// clang-format on
 
 	//__m512 data type represents a zmm
 	// register with 16 float elements
-	__m512 zmm_cos_sin = _mm512_load_ps(cos_sin_teta_vec);
+	__m512 zmm_cos_sin = _mm512_load_ps(cos_sin_theta_vec);
 
 	// Intel® AVX-512 512bit packed single load
-	__m512 zmm_sin_cos = _mm512_load_ps(sin_cos_teta_vec);
+	__m512 zmm_sin_cos = _mm512_load_ps(sin_cos_theta_vec);
 	__m512 zmm0, zmm1, zmm2, zmm3;
 	// processing 32 elements in an unrolled
 	// twice loop
@@ -73,7 +73,7 @@ void transform_avx512(float sin_teta, float cos_teta, float *in, float *out,
 	}
 }
 
-bool transform_avx512_check(float sin_teta, float cos_teta, float *in,
+bool transform_avx512_check(float sin_theta, float cos_theta, float *in,
 			    float *out, size_t len)
 {
 	/*
@@ -96,7 +96,7 @@ bool transform_avx512_check(float sin_teta, float cos_teta, float *in,
 	if (len % 32 != 0)
 		return false;
 
-	transform_avx512(sin_teta, cos_teta, in, out, len);
+	transform_avx512(sin_theta, cos_theta, in, out, len);
 
 	return true;
 }
