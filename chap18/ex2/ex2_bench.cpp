@@ -32,33 +32,33 @@ static void BM_transform_avx(benchmark::State &state)
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
 
-	float cos_teta = 0.8660254037;
-	float sin_teta = 0.5;
+	float cos_theta = 0.8660254037;
+	float sin_theta = 0.5;
 
 	// clang-format off
 
 	//Static memory allocation of 8 floats with 32byte alignments
 #ifdef _MSC_VER
-	__declspec(align(32)) float cos_sin_teta_vec[8] = {
+	__declspec(align(32)) float cos_sin_theta_vec[8] = {
 #else
-	float cos_sin_teta_vec[8] __attribute__((aligned(32))) = {
+	float cos_sin_theta_vec[8] __attribute__((aligned(32))) = {
 #endif
-            cos_teta, sin_teta, cos_teta, sin_teta,
-            cos_teta, sin_teta, cos_teta, sin_teta
+            cos_theta, sin_theta, cos_theta, sin_theta,
+            cos_theta, sin_theta, cos_theta, sin_theta
         };
 #ifdef _MSC_VER
-	__declspec(align(32)) float sin_cos_teta_vec[8] = {
+	__declspec(align(32)) float sin_cos_theta_vec[8] = {
 #else
-	float sin_cos_teta_vec[8] __attribute__((aligned(32))) = {
+	float sin_cos_theta_vec[8] __attribute__((aligned(32))) = {
 #endif
-            sin_teta, cos_teta, sin_teta, cos_teta,
-            sin_teta, cos_teta, sin_teta, cos_teta
+            sin_theta, cos_theta, sin_theta, cos_theta,
+            sin_theta, cos_theta, sin_theta, cos_theta
         };
 
 	// clang-format on
 
 	for (auto _ : state) {
-		transform_avx(cos_sin_teta_vec, sin_cos_teta_vec, pInVector,
+		transform_avx(cos_sin_theta_vec, sin_cos_theta_vec, pInVector,
 			      pOutVector, len);
 	}
 	state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(len) *
@@ -85,38 +85,38 @@ static void BM_transform_avx512(benchmark::State &state)
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
 
-	float cos_teta = 0.8660254037;
-	float sin_teta = 0.5;
+	float cos_theta = 0.8660254037;
+	float sin_theta = 0.5;
 
 	// clang-format off
 
 	//Static memory allocation of 16 floats with 64byte align- ments
 #ifdef _MSC_VER
-	__declspec(align(64)) float cos_sin_teta_vec[16] = {
+	__declspec(align(64)) float cos_sin_theta_vec[16] = {
 #else
-	float cos_sin_teta_vec[16] __attribute__((aligned(64))) = {
+	float cos_sin_theta_vec[16] __attribute__((aligned(64))) = {
 #endif
-            cos_teta, sin_teta, cos_teta, sin_teta,
-            cos_teta, sin_teta, cos_teta, sin_teta,
-            cos_teta, sin_teta, cos_teta, sin_teta,
-            cos_teta, sin_teta, cos_teta, sin_teta
+            cos_theta, sin_theta, cos_theta, sin_theta,
+            cos_theta, sin_theta, cos_theta, sin_theta,
+            cos_theta, sin_theta, cos_theta, sin_theta,
+            cos_theta, sin_theta, cos_theta, sin_theta
         };
 #ifdef _MSC_VER
-	__declspec(align(64)) float sin_cos_teta_vec[16] = {
+	__declspec(align(64)) float sin_cos_theta_vec[16] = {
 #else
-	float sin_cos_teta_vec[16] __attribute__((aligned(64))) = {
+	float sin_cos_theta_vec[16] __attribute__((aligned(64))) = {
 #endif
-            sin_teta, cos_teta, sin_teta, cos_teta,
-            sin_teta, cos_teta, sin_teta, cos_teta,
-            sin_teta, cos_teta, sin_teta, cos_teta,
-            sin_teta, cos_teta, sin_teta, cos_teta
+            sin_theta, cos_theta, sin_theta, cos_theta,
+            sin_theta, cos_theta, sin_theta, cos_theta,
+            sin_theta, cos_theta, sin_theta, cos_theta,
+            sin_theta, cos_theta, sin_theta, cos_theta
         };
 
 	// clang-format on
 
 	for (auto _ : state) {
-		transform_avx512(cos_sin_teta_vec, sin_cos_teta_vec, pInVector,
-				 pOutVector, len);
+		transform_avx512(cos_sin_theta_vec, sin_cos_theta_vec,
+				 pInVector, pOutVector, len);
 	}
 	state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(len) *
 				int64_t(sizeof(pInVector[0])));

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 by Intel Corporation
+ * Copyright (C) 2023 by Intel Corporation
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
@@ -13,20 +13,19 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef TRANSFORM_AVX512_H__
-#define TRANSFORM_AVX512_H__
+#ifndef DESWIZZLING_RGB_SSE_H__
+#define DESWIZZLING_RGB_SSE_H__
 
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
+
+#include "vertex_struct.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-void transform_avx512(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
-		      float *in, float *out, size_t len);
-bool transform_avx512_check(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
-			    float *in, float *out, size_t len);
+void deswizzling_rgb_sse(Vertex_soa *in, Vertex_aos *out);
+bool deswizzling_rgb_sse_check(Vertex_soa *in, Vertex_aos *out);
 #ifdef __cplusplus
 }
 #endif

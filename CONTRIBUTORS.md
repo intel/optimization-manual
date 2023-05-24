@@ -6,4 +6,3 @@
 - barukh.ziv@intel.com
 - keola.wierschem@intel.com
 - jyothi.krishna.viswakaran.sreelatha@intel.com
-- etay.meiri@intel.com

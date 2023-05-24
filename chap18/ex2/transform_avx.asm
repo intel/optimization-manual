@@ -15,11 +15,11 @@
 
 ;	.globl transform_avx
 
-;	# void transform_avx(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
+;	# void transform_avx(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
 ;	#	float *in, float *out, size_t len);
 ;	# On entry:
-;	#     rcx = cos_sin_teta_vec
-;	#     rdx = sin_cos_teta_vec
+;	#     rcx = cos_sin_theta_vec
+;	#     rdx = sin_cos_theta_vec
 ;	#     r8 = in
 ;	#     r9 = out
 ;	#     [rsp+40] = len
@@ -33,8 +33,8 @@ transform_avx PROC public
 	mov rax, r8; mov rax,pInVector
 	mov r11, r9 ; mov r11,pOutVector
 ;	# Load into a ymm register of 32 bytes
-	vmovups ymm3, ymmword ptr[rcx]; vmovups ymm3, ymmword ptr[cos_sin_teta_vec]
-	vmovups ymm4, ymmword ptr[rdx]; vmovups ymm4, ymmword ptr[sin_cos_teta_vec]
+	vmovups ymm3, ymmword ptr[rcx]; vmovups ymm3, ymmword ptr[cos_sin_theta_vec]
+	vmovups ymm4, ymmword ptr[rdx]; vmovups ymm4, ymmword ptr[sin_cos_theta_vec]
 
 	mov r8d, r10d; mov edx, len
 	shl r8d, 2

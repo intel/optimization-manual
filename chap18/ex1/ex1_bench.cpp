@@ -31,11 +31,11 @@ static void BM_transform_avx(benchmark::State &state)
 	// init data
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
-	float cos_teta = 0.8660254037;
-	float sin_teta = 0.5;
+	float cos_theta = 0.8660254037;
+	float sin_theta = 0.5;
 
 	for (auto _ : state) {
-		transform_avx(sin_teta, cos_teta, pInVector, pOutVector, len);
+		transform_avx(sin_theta, cos_theta, pInVector, pOutVector, len);
 	}
 	state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(len) *
 				int64_t(sizeof(pInVector[0])));
@@ -59,11 +59,11 @@ static void BM_transform_avx512(benchmark::State &state)
 	// init data
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
-	float cos_teta = 0.8660254037;
-	float sin_teta = 0.5;
+	float cos_theta = 0.8660254037;
+	float sin_theta = 0.5;
 
 	for (auto _ : state) {
-		transform_avx512(sin_teta, cos_teta, pInVector, pOutVector,
+		transform_avx512(sin_theta, cos_theta, pInVector, pOutVector,
 				 len);
 	}
 	state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(len) *

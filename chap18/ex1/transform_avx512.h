@@ -22,9 +22,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void transform_avx512(float sin_teta, float cos_teta, float *in, float *out,
+void transform_avx512(float sin_theta, float cos_theta, float *in, float *out,
 		      size_t len);
-bool transform_avx512_check(float sin_teta, float cos_teta, float *in,
+bool transform_avx512_check(float sin_theta, float cos_theta, float *in,
 			    float *out, size_t len);
 
 #ifdef __cplusplus

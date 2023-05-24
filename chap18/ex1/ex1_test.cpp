@@ -33,37 +33,38 @@ TEST(avx512_1, transform_avx)
 	// init data
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
-	float cos_teta = 0.8660254037f;
-	float sin_teta = 0.5f;
+	float cos_theta = 0.8660254037f;
+	float sin_theta = 0.5f;
 
-	ASSERT_EQ(
-	    transform_avx_check(sin_teta, cos_teta, pInVector, pOutVector, len),
-	    true);
+	ASSERT_EQ(transform_avx_check(sin_theta, cos_theta, pInVector,
+				      pOutVector, len),
+		  true);
 
 	for (int i = 0; i < len; i += 2) {
 		// Assert X'
-		float cosx = pInVector[i] * cos_teta;
-		float siny = pInVector[i + 1] * sin_teta;
+		float cosx = pInVector[i] * cos_theta;
+		float siny = pInVector[i + 1] * sin_theta;
 		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
 		// Assert Y'
-		float sinx = pInVector[i] * sin_teta;
-		float cosy = pInVector[i + 1] * cos_teta;
+		float sinx = pInVector[i] * sin_theta;
+		float cosy = pInVector[i + 1] * cos_theta;
 		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(
-	    transform_avx_check(sin_teta, cos_teta, NULL, pOutVector, len),
+	    transform_avx_check(sin_theta, cos_theta, NULL, pOutVector, len),
 	    false);
-	ASSERT_EQ(transform_avx_check(sin_teta, cos_teta, pInVector, NULL, len),
-		  false);
-	ASSERT_EQ(transform_avx_check(sin_teta, cos_teta, pInVector + 1,
+	ASSERT_EQ(
+	    transform_avx_check(sin_theta, cos_theta, pInVector, NULL, len),
+	    false);
+	ASSERT_EQ(transform_avx_check(sin_theta, cos_theta, pInVector + 1,
 				      pOutVector, len),
 		  false);
-	ASSERT_EQ(transform_avx_check(sin_teta, cos_teta, pInVector,
+	ASSERT_EQ(transform_avx_check(sin_theta, cos_theta, pInVector,
 				      pOutVector + 1, len),
 		  false);
-	ASSERT_EQ(transform_avx_check(sin_teta, cos_teta, pInVector, pOutVector,
-				      len - 4),
+	ASSERT_EQ(transform_avx_check(sin_theta, cos_theta, pInVector,
+				      pOutVector, len - 4),
 		  false);
 
 	_mm_free(pInVector);
@@ -82,40 +83,40 @@ TEST(avx512_1, transform_avx512)
 	// init data
 	for (int i = 0; i < len; i++)
 		pInVector[i] = 1;
-	float cos_teta = 0.8660254037f;
-	float sin_teta = 0.5f;
+	float cos_theta = 0.8660254037f;
+	float sin_theta = 0.5f;
 
 	if (!supports_avx512_skx())
 		GTEST_SKIP_("AVX-512 not supported, skipping test");
 
-	ASSERT_EQ(transform_avx512_check(sin_teta, cos_teta, pInVector,
+	ASSERT_EQ(transform_avx512_check(sin_theta, cos_theta, pInVector,
 					 pOutVector, len),
 		  true);
 
 	for (int i = 0; i < len; i += 2) {
 		// Assert X'
-		float cosx = pInVector[i] * cos_teta;
-		float siny = pInVector[i + 1] * sin_teta;
+		float cosx = pInVector[i] * cos_theta;
+		float siny = pInVector[i + 1] * sin_theta;
 		ASSERT_FLOAT_EQ(cosx - siny, pOutVector[i]);
 		// Assert Y'
-		float sinx = pInVector[i] * sin_teta;
-		float cosy = pInVector[i + 1] * cos_teta;
+		float sinx = pInVector[i] * sin_theta;
+		float cosy = pInVector[i + 1] * cos_theta;
 		ASSERT_FLOAT_EQ(sinx + cosy, pOutVector[i + 1]);
 	}
 
 	ASSERT_EQ(
-	    transform_avx512_check(sin_teta, cos_teta, NULL, pOutVector, len),
+	    transform_avx512_check(sin_theta, cos_theta, NULL, pOutVector, len),
 	    false);
 	ASSERT_EQ(
-	    transform_avx512_check(sin_teta, cos_teta, pInVector, NULL, len),
+	    transform_avx512_check(sin_theta, cos_theta, pInVector, NULL, len),
 	    false);
-	ASSERT_EQ(transform_avx512_check(sin_teta, cos_teta, pInVector + 1,
+	ASSERT_EQ(transform_avx512_check(sin_theta, cos_theta, pInVector + 1,
 					 pOutVector, len),
 		  false);
-	ASSERT_EQ(transform_avx512_check(sin_teta, cos_teta, pInVector,
+	ASSERT_EQ(transform_avx512_check(sin_theta, cos_theta, pInVector,
 					 pOutVector + 1, len),
 		  false);
-	ASSERT_EQ(transform_avx512_check(sin_teta, cos_teta, pInVector,
+	ASSERT_EQ(transform_avx512_check(sin_theta, cos_theta, pInVector,
 					 pOutVector, len - 16),
 		  false);
 

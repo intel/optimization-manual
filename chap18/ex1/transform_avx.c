@@ -17,7 +17,7 @@
 
 #include "transform_avx.h"
 
-void transform_avx(float sin_teta, float cos_teta, float *in, float *out,
+void transform_avx(float sin_theta, float cos_theta, float *in, float *out,
 		   size_t len)
 {
 	// Static memory allocation of 8 floats with 32byte alignments
@@ -25,30 +25,30 @@ void transform_avx(float sin_teta, float cos_teta, float *in, float *out,
 	// clang-format off
 
 #ifdef _MSC_VER
-	__declspec(align(32)) float cos_sin_teta_vec[8] = {
+	__declspec(align(32)) float cos_sin_theta_vec[8] = {
 #else
-	float cos_sin_teta_vec[8] __attribute__((aligned(32))) = {
+	float cos_sin_theta_vec[8] __attribute__((aligned(32))) = {
 #endif
-		cos_teta, sin_teta, cos_teta, sin_teta,
-		cos_teta, sin_teta, cos_teta, sin_teta
+		cos_theta, sin_theta, cos_theta, sin_theta,
+		cos_theta, sin_theta, cos_theta, sin_theta
 	};
 #ifdef _MSC_VER
-	__declspec(align(32)) float sin_cos_teta_vec[8] = {
+	__declspec(align(32)) float sin_cos_theta_vec[8] = {
 #else
-	float sin_cos_teta_vec[8] __attribute__((aligned(32))) = {
+	float sin_cos_theta_vec[8] __attribute__((aligned(32))) = {
 #endif
-		sin_teta, cos_teta, sin_teta, cos_teta,
-		sin_teta, cos_teta, sin_teta, cos_teta
+		sin_theta, cos_theta, sin_theta, cos_theta,
+		sin_theta, cos_theta, sin_theta, cos_theta
 	};
 
 	// clang-format on
 
 	//__m256 data type represents a ymm
 	// register with 8 float elements
-	__m256 ymm_cos_sin = _mm256_load_ps(cos_sin_teta_vec);
+	__m256 ymm_cos_sin = _mm256_load_ps(cos_sin_theta_vec);
 
 	// Intel® AVX2 256bit packed single load
-	__m256 ymm_sin_cos = _mm256_load_ps(sin_cos_teta_vec);
+	__m256 ymm_sin_cos = _mm256_load_ps(sin_cos_theta_vec);
 	__m256 ymm0, ymm1, ymm2, ymm3;
 	// processing 16 elements in an unrolled
 	// twice loop
@@ -69,8 +69,8 @@ void transform_avx(float sin_teta, float cos_teta, float *in, float *out,
 	}
 }
 
-bool transform_avx_check(float sin_teta, float cos_teta, float *in, float *out,
-			 size_t len)
+bool transform_avx_check(float sin_theta, float cos_theta, float *in,
+			 float *out, size_t len)
 {
 	/*
 	 * in and out must be non NULL and 32 byte aligned.
@@ -92,7 +92,7 @@ bool transform_avx_check(float sin_teta, float cos_teta, float *in, float *out,
 	if (len % 16 != 0)
 		return false;
 
-	transform_avx(sin_teta, cos_teta, in, out, len);
+	transform_avx(sin_theta, cos_theta, in, out, len);
 
 	return true;
 }

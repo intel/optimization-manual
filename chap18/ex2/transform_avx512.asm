@@ -15,11 +15,11 @@
 
 ;	.globl transform_avx512
 
-;	# void transform_avx512(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
+;	# void transform_avx512(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
 ;	#	float *in, float *out, size_t len);
 ;	# On entry:
-;	#     rcx = cos_sin_teta_vec
-;	#     rdx = sin_cos_teta_vec
+;	#     rcx = cos_sin_theta_vec
+;	#     rdx = sin_cos_theta_vec
 ;	#     r8 = in
 ;	#     r9 = out
 ;	#     [rsp+40] = len
@@ -33,8 +33,8 @@ transform_avx512 PROC public
 	mov rax, r8; mov rax,pInVector
 	mov r11, r9 ; mov r11,pOutVector
 ;	# Load into a zmm register of 64 bytes
-	vmovups zmm3, zmmword ptr[rcx]; vmovups zmm3, zmmword ptr[cos_sin_teta_vec]
-	vmovups zmm4, zmmword ptr[rdx]; vmovups zmm4, zmmword ptr[sin_cos_teta_vec]
+	vmovups zmm3, zmmword ptr[rcx]; vmovups zmm3, zmmword ptr[cos_sin_theta_vec]
+	vmovups zmm4, zmmword ptr[rdx]; vmovups zmm4, zmmword ptr[sin_cos_theta_vec]
 	mov r8d, r10d; mov edx, len
 	shl r8d, 2
 	xor r9d, r9d

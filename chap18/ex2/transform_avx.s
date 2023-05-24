@@ -18,11 +18,11 @@
 	.globl _transform_avx
 	.globl transform_avx
 
-	# void transform_avx(float *cos_sin_teta_vec, float *sin_cos_teta_vec,
+	# void transform_avx(float *cos_sin_theta_vec, float *sin_cos_theta_vec,
 	#	float *in, float *out, size_t len);
 	# On entry:
-	#     rdi = cos_sin_teta_vec
-	#     rsi = sin_cos_teta_vec
+	#     rdi = cos_sin_theta_vec
+	#     rsi = sin_cos_theta_vec
 	#     rdx = in
 	#     rcx = out
 	#     r8 = len
@@ -36,8 +36,8 @@ transform_avx:
 	mov rax, rdx # mov rax,pInVector
 	mov r8, rcx  # mov r8,pOutVector
 	# Load into a ymm register of 32 bytes
-	vmovups ymm3, ymmword ptr[rdi] # vmovups ymm3, ymmword ptr[cos_sin_teta_vec]
-	vmovups ymm4, ymmword ptr[rsi] # vmovups ymm4, ymmword ptr[sin_cos_teta_vec]
+	vmovups ymm3, ymmword ptr[rdi] # vmovups ymm3, ymmword ptr[cos_sin_theta_vec]
+	vmovups ymm4, ymmword ptr[rsi] # vmovups ymm4, ymmword ptr[sin_cos_theta_vec]
 
 	mov edx, r9d # mov edx, len
 	shl edx, 2
